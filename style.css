@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff0f5;
+  color: #333;
+}
+.sidebar {
+  position: fixed;
+  width: 220px;
+  height: 100%;
+  background-color: #f8d0e7;
+  padding: 20px;
+}
+.sidebar h2 {
+  color: #b4005c;
+  font-size: 1.5em;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+.sidebar ul li a {
+  text-decoration: none;
+  color: #b4005c;
+  display: block;
+  padding: 8px 0;
+}
+.sidebar ul li a.active,
+.sidebar ul li a:hover {
+  font-weight: bold;
+}
+.main-content {
+  margin-left: 240px;
+  padding: 40px;
+}
