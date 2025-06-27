@@ -5,59 +5,78 @@
   <title>HOA VÔ ƯU</title>
   <style>
     body {
-      background-color: #FFF5EC; /* nền cam nhạt */
-      color: #333;
       margin: 0;
-      padding: 20px;
-      line-height: 1.6;
+      background-color: #FFF5EC; /* nền cam nhạt */
       font-family: 'Segoe UI', sans-serif;
     }
 
-    h1, h2 {
-      color: #D2691E; /* cam đất đậm */
+    /* Thanh menu ngang */
+    .header {
+      background-color: #F7C59F; /* cam nhạt */
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
     }
 
-    .thanh-ben {
-      width: 180px;
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      background-color: #FFF0B4; /* vàng cam dịu */
-      padding: 20px;
-    }
-
-    .noi-dung-chinh {
-      margin-left: 200px;
-      background: #ffffff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(234, 195, 156, 0.3); /* bóng nhẹ cam */
-    }
-
-    a {
-      color: #A0522D; /* cam nâu */
-      text-decoration: none;
+    .header .logo {
+      font-size: 24px;
       font-weight: bold;
+      color: #D2691E;
     }
 
-    a:hover {
+    .nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #8B4513;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .nav a:hover {
       color: #E97451;
-      text-decoration: underline;
+    }
+
+    /* Nội dung chính */
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(234, 195, 156, 0.3);
+    }
+
+    h1 {
+      color: #D2691E;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #444;
+      font-size: 16px;
+      line-height: 1.6;
     }
   </style>
 </head>
 <body>
-  <div class="thanh-ben">
-    <h2>🌸 HOA VÔ ƯU</h2>
-    <p><a href="#">Giới thiệu</a></p>
-    <p><a href="#">Truyện hay</a></p>
+
+  <div class="header">
+    <div class="logo">🌸 HOA VÔ ƯU</div>
+    <div class="nav">
+      <a href="#">Giới thiệu</a>
+      <a href="#">Truyện hay</a>
+      <a href="#">Liên hệ</a>
+    </div>
   </div>
 
-  <div class="noi-dung-chinh">
+  <div class="container">
     <h1>🌸 Chào mừng đến với HOA VÔ ƯU</h1>
-    <p>Trang chia sẻ những bộ truyện ngôn tình đặc sắc do nhóm thực hiện.</p>
+    <p>Trang chia sẻ những bộ truyện ngôn tình đặc sắc do nhóm dịch thực hiện.</p>
     <p>Giao diện cam đất hiện đại, dịu dàng mà nổi bật – đúng chất “mộng mơ”.</p>
   </div>
+
 </body>
 </html>
