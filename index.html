@@ -3,24 +3,92 @@
 <head>
   <meta charset="UTF-8">
   <title>HOA VÔ ƯU - Thư viện truyện</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body { background-color: #ffeef2; font-family: 'Segoe UI', sans-serif; text-align: center; padding: 20px; }
-    h1 { color: #b3005f; }
-    .card {
-      background: white; border-radius: 10px; box-shadow: 0 0 10px #ccc;
-      display: inline-block; margin: 20px; width: 250px; vertical-align: top;
+    body {
+      margin: 0;
+      background-color: #fff6f0;
+      font-family: 'Be Vietnam Pro', sans-serif;
     }
-    .card img { width: 100%; border-radius: 10px 10px 0 0; }
-    .card h3 { margin: 10px 0 5px; color: #b3005f; }
-    .card p { padding: 0 10px 10px; font-size: 14px; color: #444; }
-    .card a { display: block; background: #ff4081; color: white; padding: 10px; border-radius: 0 0 10px 10px; text-decoration: none; }
+    header {
+      background-color: #FF8C42;
+      padding: 20px;
+      text-align: center;
+      color: white;
+      font-size: 28px;
+      font-weight: 600;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 30px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .card {
+      background-color: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 15px;
+    }
+    .card h3 {
+      margin: 0;
+      font-size: 18px;
+      color: #e65100;
+    }
+    .card p {
+      font-size: 14px;
+      color: #444;
+      margin-top: 8px;
+      min-height: 50px;
+    }
+    .card a {
+      display: inline-block;
+      margin-top: 10px;
+      background-color: #ff7043;
+      color: white;
+      padding: 8px 14px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #888;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
 
-  <h1>HOA VÔ ƯU - Thư viện truyện</h1>
-  <div id="book-list"></div>
+  <header>
+    HOA VÔ ƯU - Thư viện truyện
+  </header>
+
+  <div class="container" id="book-list">
+    <!-- Truyện sẽ tự động hiển thị ở đây -->
+  </div>
+
+  <footer>
+    &copy; 2025 HOA VÔ ƯU. All rights reserved.
+  </footer>
 
   <script>
     function showBooks(data) {
@@ -30,9 +98,11 @@
         card.className = 'card';
         card.innerHTML = `
           <img src="${book['Ảnh bìa']}" alt="${book['Tên truyện']}">
-          <h3>${book['Tên truyện']}</h3>
-          <p>${book['Mô tả ngắn']}</p>
-          <a href="${book['Link đọc']}" target="_blank">Đọc truyện</a>
+          <div class="card-content">
+            <h3>${book['Tên truyện']}</h3>
+            <p>${book['Mô tả ngắn']}</p>
+            <a href="${book['Link đọc']}" target="_blank">Đọc truyện</a>
+          </div>
         `;
         container.appendChild(card);
       });
@@ -46,10 +116,6 @@
       });
     });
   </script>
-
-  <footer style="margin-top: 40px; color: gray;">
-    &copy; 2025 HOA VÔ ƯU. All rights reserved.
-  </footer>
 
 </body>
 </html>
