@@ -2,14 +2,13 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>HOA VÔ ƯU - Thư viện truyện</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #fff0f5;
-      color: #333;
+      font-family: Arial, sans-serif;
+      background-color: #ffeef3;
     }
     header {
       background-color: #ffb6c1;
@@ -17,11 +16,12 @@
       text-align: center;
     }
     header img {
-      height: 60px;
+      width: 100px;
+      height: auto;
     }
     h1 {
-      margin: 10px 0;
-      color: #800040;
+      margin-top: 10px;
+      color: #88003b;
     }
     .container {
       display: flex;
@@ -31,56 +31,55 @@
       gap: 20px;
     }
     .card {
+      width: 200px;
       background: white;
-      width: 260px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       overflow: hidden;
-      transition: 0.3s;
-    }
-    .card:hover {
-      transform: scale(1.03);
+      text-align: center;
     }
     .card img {
       width: 100%;
-      height: 340px;
+      height: 300px;
       object-fit: cover;
     }
-    .card-body {
-      padding: 15px;
-    }
     .card-title {
-      font-size: 18px;
       font-weight: bold;
-      margin: 0 0 8px;
+      padding: 10px 5px 0;
+      font-size: 16px;
     }
     .card-desc {
-      font-size: 14px;
-      color: #666;
+      font-size: 13px;
+      padding: 0 10px 10px;
+      color: #555;
     }
     .card-link {
       display: block;
-      margin-top: 12px;
+      margin: 10px auto;
+      padding: 8px;
+      background: #ff69b4;
+      color: white;
       text-decoration: none;
-      color: #ff4081;
-      font-weight: bold;
+      width: 80%;
+      border-radius: 5px;
     }
     footer {
       text-align: center;
       padding: 20px;
       font-size: 14px;
-      color: #999;
+      color: #666;
     }
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js"></script>
 </head>
 <body>
   <header>
-    <img src="logo.png" alt="HOA VÔ ƯU Logo" />
+    <img src="logo.png" alt="HOA VÔ ƯU Logo">
     <h1>HOA VÔ ƯU - Thư viện truyện</h1>
   </header>
 
   <div class="container" id="story-container">
-    <!-- Truyện sẽ được chèn ở đây -->
+    <!-- Truyện sẽ được thêm vào đây -->
   </div>
 
   <footer>
@@ -88,33 +87,32 @@
   </footer>
 
   <script>
-    const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQhwe8iFiG1PoUVJZs4M8_YwEnBkNSNPYYuAWfHDYDaVsnS8UjqmgzBmfIB3nMGpdKTLMcQ5KfvKz0A/pub?output=csv';
+    const publicSpreadsheetURL = 'https://docs.google.com/spreadsheets/d/1vwaRiGk7TxtP2N1D8BfngcfJBjhLk_qY3AmkWXOh0f8/edit?usp=sharing';
 
-    fetch(sheetURL)
-      .then(res => res.text())
-      .then(csvText => {
-        const rows = csvText.split('\n').slice(1);
-        const container = document.getElementById('story-container');
-
-        rows.forEach(row => {
-          const cols = row.split(',');
-          const [name, author, genre, status, link, image, desc] = cols;
-
-          if (!name || !link) return;
-
-          const card = document.createElement('div');
-          card.className = 'card';
-          card.innerHTML = `
-            <img src="${image || 'https://via.placeholder.com/300x400?text=No+Image'}" alt="${name}">
-            <div class="card-body">
-              <div class="card-title">${name}</div>
-              <div class="card-desc">${desc || ''}</div>
-              <a href="${link}" target="_blank" class="card-link">Đọc truyện</a>
-            </div>
-          `;
-          container.appendChild(card);
-        });
+    function init() {
+      Tabletop.init({
+        key: publicSpreadsheetURL,
+        simpleSheet: true,
+        callback: showData
       });
+    }
+
+    function showData(data) {
+      const container = document.getElementById('story-container');
+      data.forEach(row => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <img src="${row.Ảnh || 'https://via.placeholder.com/300x400?text=No+Image'}" alt="${row.Tên}">
+          <div class="card-title">${row.Tên}</div>
+          <div class="card-desc">${row.Mô_tả || ''}</div>
+          <a href="${row.Link}" target="_blank" class="card-link">Đọc truyện</a>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', init);
   </script>
 </body>
 </html>
