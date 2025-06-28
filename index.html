@@ -1,118 +1,55 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>HOA VÔ ƯU - Thư viện truyện</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #ffeef3;
-    }
-    header {
-      background-color: #ffb6c1;
-      padding: 20px;
-      text-align: center;
-    }
-    header img {
-      width: 100px;
-      height: auto;
-    }
-    h1 {
-      margin-top: 10px;
-      color: #88003b;
-    }
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 20px;
-      gap: 20px;
-    }
-    .card {
-      width: 200px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      overflow: hidden;
-      text-align: center;
-    }
-    .card img {
-      width: 100%;
-      height: 300px;
-      object-fit: cover;
-    }
-    .card-title {
-      font-weight: bold;
-      padding: 10px 5px 0;
-      font-size: 16px;
-    }
-    .card-desc {
-      font-size: 13px;
-      padding: 0 10px 10px;
-      color: #555;
-    }
-    .card-link {
-      display: block;
-      margin: 10px auto;
-      padding: 8px;
-      background: #ff69b4;
-      color: white;
-      text-decoration: none;
-      width: 80%;
-      border-radius: 5px;
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 14px;
-      color: #666;
-    }
-  </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js"></script>
+  <style>
+    body { background-color: #ffeef2; font-family: 'Segoe UI', sans-serif; text-align: center; padding: 20px; }
+    h1 { color: #b3005f; }
+    .card {
+      background: white; border-radius: 10px; box-shadow: 0 0 10px #ccc;
+      display: inline-block; margin: 20px; width: 250px; vertical-align: top;
+    }
+    .card img { width: 100%; border-radius: 10px 10px 0 0; }
+    .card h3 { margin: 10px 0 5px; color: #b3005f; }
+    .card p { padding: 0 10px 10px; font-size: 14px; color: #444; }
+    .card a { display: block; background: #ff4081; color: white; padding: 10px; border-radius: 0 0 10px 10px; text-decoration: none; }
+  </style>
 </head>
 <body>
-  <header>
-    <img src="logo.png" alt="HOA VÔ ƯU Logo">
-    <h1>HOA VÔ ƯU - Thư viện truyện</h1>
-  </header>
 
-  <div class="container" id="story-container">
-    <!-- Truyện sẽ được thêm vào đây -->
-  </div>
-
-  <footer>
-    © 2025 HOA VÔ ƯU. All rights reserved.
-  </footer>
+  <h1>HOA VÔ ƯU - Thư viện truyện</h1>
+  <div id="book-list"></div>
 
   <script>
-    const publicSpreadsheetURL = 'https://docs.google.com/spreadsheets/d/1vwaRiGk7TxtP2N1D8BfngcfJBjhLk_qY3AmkWXOh0f8/edit?usp=sharing';
-
-    function init() {
-      Tabletop.init({
-        key: publicSpreadsheetURL,
-        simpleSheet: true,
-        callback: showData
-      });
-    }
-
-    function showData(data) {
-      const container = document.getElementById('story-container');
-      data.forEach(row => {
+    function showBooks(data) {
+      const container = document.getElementById('book-list');
+      data.forEach(book => {
         const card = document.createElement('div');
         card.className = 'card';
         card.innerHTML = `
-          <img src="${row.Ảnh || 'https://via.placeholder.com/300x400?text=No+Image'}" alt="${row.Tên}">
-          <div class="card-title">${row.Tên}</div>
-          <div class="card-desc">${row.Mô_tả || ''}</div>
-          <a href="${row.Link}" target="_blank" class="card-link">Đọc truyện</a>
+          <img src="${book['Ảnh bìa']}" alt="${book['Tên truyện']}">
+          <h3>${book['Tên truyện']}</h3>
+          <p>${book['Mô tả ngắn']}</p>
+          <a href="${book['Link đọc']}" target="_blank">Đọc truyện</a>
         `;
         container.appendChild(card);
       });
     }
 
-    window.addEventListener('DOMContentLoaded', init);
+    window.addEventListener('DOMContentLoaded', () => {
+      Tabletop.init({
+        key: 'https://docs.google.com/spreadsheets/d/1vwaRiGk7TxtP2N1D8BfngcfJBjhLk_qY3AmkWXOh0f8/edit?usp=sharing',
+        simpleSheet: true,
+        callback: showBooks
+      });
+    });
   </script>
+
+  <footer style="margin-top: 40px; color: gray;">
+    &copy; 2025 HOA VÔ ƯU. All rights reserved.
+  </footer>
+
 </body>
 </html>
