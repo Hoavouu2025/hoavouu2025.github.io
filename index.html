@@ -1,82 +1,120 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>HOA VÔ ƯU</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HOA VÔ ƯU - Thư viện truyện</title>
   <style>
     body {
       margin: 0;
-      background-color: #FFF5EC; /* nền cam nhạt */
       font-family: 'Segoe UI', sans-serif;
+      background: #fff0f5;
+      color: #333;
     }
-
-    /* Thanh menu ngang */
-    .header {
-      background-color: #F7C59F; /* cam nhạt */
-      padding: 20px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    header {
+      background-color: #ffb6c1;
+      padding: 20px;
+      text-align: center;
     }
-
-    .header .logo {
-      font-size: 24px;
-      font-weight: bold;
-      color: #D2691E;
+    header img {
+      height: 60px;
     }
-
-    .nav a {
-      margin-left: 20px;
-      text-decoration: none;
-      color: #8B4513;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
-
-    .nav a:hover {
-      color: #E97451;
-    }
-
-    /* Nội dung chính */
-    .container {
-      max-width: 800px;
-      margin: 40px auto;
-      background-color: #fff;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(234, 195, 156, 0.3);
-    }
-
     h1 {
-      color: #D2691E;
-      font-size: 28px;
-      margin-bottom: 10px;
+      margin: 10px 0;
+      color: #800040;
     }
-
-    p {
-      color: #444;
-      font-size: 16px;
-      line-height: 1.6;
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      width: 260px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: 0.3s;
+    }
+    .card:hover {
+      transform: scale(1.03);
+    }
+    .card img {
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+    }
+    .card-body {
+      padding: 15px;
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 0 0 8px;
+    }
+    .card-desc {
+      font-size: 14px;
+      color: #666;
+    }
+    .card-link {
+      display: block;
+      margin-top: 12px;
+      text-decoration: none;
+      color: #ff4081;
+      font-weight: bold;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: #999;
     }
   </style>
 </head>
 <body>
+  <header>
+    <img src="logo.png" alt="HOA VÔ ƯU Logo" />
+    <h1>HOA VÔ ƯU - Thư viện truyện</h1>
+  </header>
 
-  <div class="header">
-    <div class="logo">🌸 HOA VÔ ƯU</div>
-    <div class="nav">
-      <a href="#">Giới thiệu</a>
-      <a href="#">Truyện hay</a>
-      <a href="#">Liên hệ</a>
-    </div>
+  <div class="container" id="story-container">
+    <!-- Truyện sẽ được chèn ở đây -->
   </div>
 
-  <div class="container">
-    <h1>🌸 Chào mừng đến với HOA VÔ ƯU</h1>
-    <p>Trang chia sẻ những bộ truyện ngôn tình đặc sắc do nhóm dịch thực hiện.</p>
-    <p>Giao diện cam đất hiện đại, dịu dàng mà nổi bật – đúng chất “mộng mơ”.</p>
-  </div>
+  <footer>
+    © 2025 HOA VÔ ƯU. All rights reserved.
+  </footer>
 
+  <script>
+    const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQhwe8iFiG1PoUVJZs4M8_YwEnBkNSNPYYuAWfHDYDaVsnS8UjqmgzBmfIB3nMGpdKTLMcQ5KfvKz0A/pub?output=csv';
+
+    fetch(sheetURL)
+      .then(res => res.text())
+      .then(csvText => {
+        const rows = csvText.split('\n').slice(1);
+        const container = document.getElementById('story-container');
+
+        rows.forEach(row => {
+          const cols = row.split(',');
+          const [name, author, genre, status, link, image, desc] = cols;
+
+          if (!name || !link) return;
+
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <img src="${image || 'https://via.placeholder.com/300x400?text=No+Image'}" alt="${name}">
+            <div class="card-body">
+              <div class="card-title">${name}</div>
+              <div class="card-desc">${desc || ''}</div>
+              <a href="${link}" target="_blank" class="card-link">Đọc truyện</a>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      });
+  </script>
 </body>
 </html>
